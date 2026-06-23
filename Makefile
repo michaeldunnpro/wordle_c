@@ -36,6 +36,13 @@ clean:
 .PHONY: run # Mark 'run' as a phony target to avoid conflicts with files
 run: all
 	./$(BINDIR)/$(TARGET)
+# =============================================================================
+# Formatting and Style Rule (Requires clang-format)
+# =============================================================================
+.PHONY: format # Mark 'format' as a phony target to avoid conflicts with files
+format:
+	@echo "Formatting source files..."
+	@clang-format -i $(SRCDIR)/*.c $(SRCDIR)/*.h
 # ==============================================================================
 # Help Rule
 # ==============================================================================
@@ -46,5 +53,6 @@ help:
 	@echo "  all     - Build the project (default)"
 	@echo "  clean   - Remove all build artifacts"
 	@echo "  run     - Build and run the project"
+	@echo "  format  - Format source files using clang-format (if installed)"
 	@echo "  help    - Show this help message"
 # ==============================================================================

@@ -26,7 +26,8 @@
 #define STYLE_BOLD "\x1b[1m"
 #define STYLE_UNDERLINE "\x1b[4m"
 
-int printColor(const char *fg, const char *bg, const char *style, const char *string);
+int printColor(const char *fg, const char *bg, const char *style,
+               const char *string);
 int printWordleGreen(const char *string);
 int printWordleYellow(const char *string);
 int printWordleBlack(const char *string);
