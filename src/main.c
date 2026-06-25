@@ -1,4 +1,7 @@
 #include "main.h"
+#include "color_print.h"
+#include "matcher.h"
+#include "word_bank.h"
 #include <stdio.h>
 
 int main() {
@@ -26,6 +29,20 @@ int main() {
     random_index = rand() % OFFICIAL_ALLOWED_GUESSES_SIZE;
     printf("%s\n", OFFICIAL_ALLOWED_GUESSES[random_index]);
   }
+
+  // Test matcher
+  const char *word = "SLATE";
+  const char *pattern = "LATTE"; // I believe this logic is slightly off, 
+  // We should return a gray for the extra 'T' in the pattern.
+  // Will modify.
+  int result[5] = {0}; // Initialize result array to 0
+  match_word(word, pattern, result); // Call the match_word function
+  // Print the array to verify the result
+  printf("Match result for word '%s' and pattern '%s':\n", word, pattern);
+  for (int i = 0; i < 5; i++) {
+    printf("%d ", result[i]);
+  }
+  printf("\n");
 
   return 0;
 }

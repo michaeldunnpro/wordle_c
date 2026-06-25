@@ -8,7 +8,7 @@
 # Variables & Configuration
 # ==============================================================================
 CC = gcc
-CFLAGS = -Wall -Werror -g -fsanitize=address
+CFLAGS = -Wall -Werror -g
 TARGET = wordle_c
 SRCDIR = src
 BINDIR = bin
