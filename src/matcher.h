@@ -1,6 +1,8 @@
 #ifndef MATCHER_H
 #define MATCHER_H
 
+void count_chars(const char *chars, int len_word, char *found_lets,
+                 int *found_lets_count);
 void match_word(const char *word, const char *pattern, int *result);
 
 #endif // MATCHER_H
