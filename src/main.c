@@ -31,12 +31,12 @@ int main() {
   }
 
   // Test matcher
-  const char *word = "SLATE";
+  const char *target = "SLATE";
   const char *input = "LATTE"; 
   int result[5] = {0};               // Initialize result array to 0
-  match_word(word, input, result); // Call the match_word function
+  match_word(target, input, result); // Call the match_word function
   // Print the array to verify the result
-  printf("Match result for target '%s' and input '%s':\n", word, input);
+  printf("Match result for input '%s' and target '%s':\n", input, target);
   for (int i = 0; i < 5; i++) {
     printf("%d ", result[i]);
   }
