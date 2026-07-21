@@ -32,13 +32,11 @@ int main() {
 
   // Test matcher
   const char *word = "SLATE";
-  const char *pattern = "LATTE"; // I believe this logic is slightly off,
-  // We should return a gray for the extra 'T' in the pattern.
-  // Will modify.
+  const char *input = "LATTE"; 
   int result[5] = {0};               // Initialize result array to 0
-  match_word(word, pattern, result); // Call the match_word function
+  match_word(word, input, result); // Call the match_word function
   // Print the array to verify the result
-  printf("Match result for word '%s' and pattern '%s':\n", word, pattern);
+  printf("Match result for target '%s' and input '%s':\n", word, input);
   for (int i = 0; i < 5; i++) {
     printf("%d ", result[i]);
   }
