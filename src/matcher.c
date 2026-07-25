@@ -6,6 +6,15 @@
 
 // Helper functions
 
+/**
+ * Counts occurrences of characters in a string and records unique letters.
+ *
+ * Parameters:
+ *   chars - The source character array to analyze
+ *   len_target - The number of characters to process from chars
+ *   found_lets - Output array of unique characters discovered in chars
+ *   found_lets_count - Output array of occurrence counts for found_lets
+ */
 void count_chars(const char *chars, int len_target, char *found_lets,
                  int *found_lets_count) {
   // Counts the occurrences of each character in the given string.
@@ -36,6 +45,15 @@ void count_chars(const char *chars, int len_target, char *found_lets,
   }
 }
 
+/**
+ * Decrements the tracked count for a specific character.
+ *
+ * Parameters:
+ *   c - Character to decrement
+ *   len_target - Length of the tracking arrays
+ *   found_lets - Array of tracked unique characters
+ *   found_lets_count - Array of counts for each character in found_lets
+ */
 void decrement_count(char c, int len_target, char *found_lets,
                      int *found_lets_count) {
   // Decrements the count of the character c in found_lets_count
@@ -47,7 +65,18 @@ void decrement_count(char c, int len_target, char *found_lets,
   }
 }
 
-// Find current count of a character in the found_lets_count array
+/**
+ * Gets the current tracked count for a specific character.
+ *
+ * Parameters:
+ *   c - Character to query
+ *   len_target - Length of the tracking arrays
+ *   found_lets - Array of tracked unique characters
+ *   found_lets_count - Array of counts for each character in found_lets
+ *
+ * Returns:
+ *   The remaining count for c, or 0 if c is not present.
+ */
 int get_count(char c, int len_target, char *found_lets, int *found_lets_count) {
   for (int i = 0; i < len_target; i++) {
     if (found_lets[i] == c) {
@@ -59,6 +88,24 @@ int get_count(char c, int len_target, char *found_lets, int *found_lets_count) {
 
 // Main function
 
+/**
+ * Compares a target word against an input word and assigns Wordle-style match
+ * states.
+ *
+ * Match values written to result:
+ *   0 - Gray (letter not present)
+ *   1 - Green (correct letter, correct position)
+ *   2 - Yellow (correct letter, wrong position)
+ *
+ * Parameters:
+ *   target - The reference word to match against
+ *   input - The guessed/input word to evaluate
+ *   result - Output array to receive per-character match values
+ *
+ * Notes:
+ *   target and input must be the same length. If they are not, the function
+ *   writes an error to stderr and returns without modifying result.
+ */
 void match_word(const char *target, const char *input, int *result) {
   // Modifies the result array in place (caller must allocate it
   // to be of size strlen(target) or strlen(input), which must be equal)
