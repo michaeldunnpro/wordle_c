@@ -32,7 +32,7 @@ int main() {
 
   // Test matcher
   const char *target = "SLATE";
-  const char *input = "LATTE"; 
+  const char *input = "LATTE";
   int result[5] = {0};               // Initialize result array to 0
   match_word(target, input, result); // Call the match_word function
   // Print the array to verify the result

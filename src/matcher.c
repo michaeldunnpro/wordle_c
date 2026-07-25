@@ -1,5 +1,4 @@
 #include "matcher.h"
-#include "word_bank.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +14,7 @@
  *   found_lets - Output array of unique characters discovered in chars
  *   found_lets_count - Output array of occurrence counts for found_lets
  */
-void count_chars(const char *chars, int len_target, char *found_lets,
+void count_chars(const char *chars, const int len_target, char *found_lets,
                  int *found_lets_count) {
   // Counts the occurrences of each character in the given string.
   // Helper function to be used in match_word.
@@ -54,7 +53,7 @@ void count_chars(const char *chars, int len_target, char *found_lets,
  *   found_lets - Array of tracked unique characters
  *   found_lets_count - Array of counts for each character in found_lets
  */
-void decrement_count(char c, int len_target, char *found_lets,
+void decrement_count(const char c, const int len_target, const char *found_lets,
                      int *found_lets_count) {
   // Decrements the count of the character c in found_lets_count
   for (int i = 0; i < len_target; i++) {
@@ -77,7 +76,8 @@ void decrement_count(char c, int len_target, char *found_lets,
  * Returns:
  *   The remaining count for c, or 0 if c is not present.
  */
-int get_count(char c, int len_target, char *found_lets, int *found_lets_count) {
+int get_count(const char c, const int len_target, const char *found_lets,
+              int *found_lets_count) {
   for (int i = 0; i < len_target; i++) {
     if (found_lets[i] == c) {
       return found_lets_count[i];
