@@ -3,13 +3,13 @@
 ![TUI Demo](demo.gif)
 
 
-A terminal Wordle written in pure C with a full-screen color Terminal User Interface (TUI). While the package was originally designed for UNIX-like systems, it can be compiled and played on any terminal that supports ANSI escape codes. 
+A terminal Wordle written in pure C with a full-screen color Terminal User Interface (TUI). While the package was originally designed for UNIX-like systems, it can be compiled and played on any terminal that supports ANSI escape codes. A makefile that handles compilation and installation is included.
 
 This repository began as a summer project, but later became a test case for Local Large Language Model use (Qwen-3.8-Flash-Next IQ3_S), which was used to complete the TUI and game loop. It's a fun, self-contained piece of code.
 
 ## How to install
 
-First, clone the repository:
+Note that if you're on Windows, you'll need WSL2 to follow these instructions, since we're using make. First, clone the repository:
 ```
 git clone https://github.com/michaeldunnpro/wordle_c.git
 ```

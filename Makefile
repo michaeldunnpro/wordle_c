@@ -19,11 +19,11 @@ OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(BINDIR)/%.o)
 # ==============================================================================
 all: $(BINDIR)/$(TARGET)
 $(BINDIR)/$(TARGET): $(OBJECTS)
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -o $@ $^
+	@mkdir -p "$(BINDIR)"
+	$(CC) $(CFLAGS) -o "$@" $^
 $(BINDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@mkdir -p "$(BINDIR)"
+	$(CC) $(CFLAGS) -c -o "$@" "$<"
 # ==============================================================================
 # Launcher Install Rule (system symlink so the game starts from anywhere)
 # ==============================================================================
@@ -33,21 +33,23 @@ INSTALL_DIR ?= /usr/local/bin
 LAUNCH_LINK = $(INSTALL_DIR)/$(TARGET)
 .PHONY: install # Mark 'install' as a phony target to avoid conflicts with files
 install: all
-	mkdir -p $(INSTALL_DIR)
-	ln -sfn $(abspath $(BINDIR)/$(TARGET)) $(LAUNCH_LINK) && echo "[install] $(LAUNCH_LINK) -> $(abspath $(BINDIR)/$(TARGET)),\n[install] Install successful. Type '$(TARGET)' to play." || echo "[install] $(INSTALL_DIR) is protected; install with sudo";
+	mkdir -p "$(INSTALL_DIR)"
+	ln -sfn "$(abspath $(BINDIR)/$(TARGET))" "$(LAUNCH_LINK)"
+	@printf '[install] %s -> %s\n[install] Install successful. Type "%s" to play.\n' \
+		"$(LAUNCH_LINK)" "$(abspath $(BINDIR)/$(TARGET))" "$(TARGET)"
 # ==============================================================================
 # Clean Rule
 # ==============================================================================
 .PHONY: clean # Mark 'clean' as a phony target to avoid conflicts with files
 clean:
-	rm -rf $(BINDIR)/*
+	rm -rf "$(BINDIR)"/*
 	@if [ -L "$(LAUNCH_LINK)" ]; then rm "$(LAUNCH_LINK)" && echo "[clean] Removed launcher link $(LAUNCH_LINK)" || echo "[clean] $(LAUNCH_LINK) is protected; remove it with sudo"; fi
 # ==============================================================================
 # Run Rule
 # ==============================================================================
 .PHONY: run # Mark 'run' as a phony target to avoid conflicts with files
 run: all
-	./$(BINDIR)/$(TARGET)
+	"./$(BINDIR)/$(TARGET)"
 # ==============================================================================
 # Memory Safety Rules (Address + Undefined Behaviour Sanitizers)
 # ==============================================================================
@@ -55,17 +57,17 @@ SANFLAGS = -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-fram
 SANBIN = $(BINDIR)/$(TARGET)-san
 .PHONY: sanitize check
 sanitize:
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(SANFLAGS) -o $(SANBIN) $(SOURCES)
+	@mkdir -p "$(BINDIR)"
+	$(CC) $(CFLAGS) $(SANFLAGS) -o "$(SANBIN)" $(SOURCES)
 check: sanitize
 	@echo "[check] Valid guesses, then replay, then quit..."
-	@printf 'crane\nr\nq\n' | ./$(SANBIN) > /dev/null
+	@printf 'crane\nr\nq\n' | "./$(SANBIN)" > /dev/null
 	@echo "[check] Deterministic win with forced target 'slate'..."
-	@printf 'slate\nr\nq\n' | ./$(SANBIN) slate > /dev/null
+	@printf 'slate\nr\nq\n' | "./$(SANBIN)" slate > /dev/null
 	@echo "[check] Invalid inputs (symbols, wrong length, off-list), loss game, then quit..."
-	@printf 'slate\nbarn!\ncrane\nnotaword\npride\nabout\nshiny\nerase\nr\n' | ./$(SANBIN) > /dev/null
+	@printf 'slate\nbarn!\ncrane\nnotaword\npride\nabout\nshiny\nerase\nr\n' | "./$(SANBIN)" > /dev/null
 	@echo "[check] Over-long line, bytes, then end-of-file mid-game and at replay prompt..."
-	@printf 'abcdefghij\nhello1!\nqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjkl\nqwe\n' | ./$(SANBIN) > /dev/null
+	@printf 'abcdefghij\nhello1!\nqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjkl\nqwe\n' | "./$(SANBIN)" > /dev/null
 	@echo "[check] All sanitized runs finished with no sanitizer reports."
 	@$(MAKE) --no-print-directory valgrind
 # ==============================================================================
@@ -76,13 +78,13 @@ VGFLAGS = --leak-check=full --show-leak-kinds=definite,possible \
 .PHONY: valgrind # Mark 'valgrind' as a phony target to avoid file conflicts
 valgrind: all
 	@echo "[valgrind] Valid guesses, then replay, then quit..."
-	@printf 'crane\nr\nq\n' | valgrind $(VGFLAGS) ./$(BINDIR)/$(TARGET) > /dev/null
+	@printf 'crane\nr\nq\n' | valgrind $(VGFLAGS) "./$(BINDIR)/$(TARGET)" > /dev/null
 	@echo "[valgrind] Deterministic win with forced target 'slate'..."
-	@printf 'slate\nr\nq\n' | valgrind $(VGFLAGS) ./$(BINDIR)/$(TARGET) slate > /dev/null
+	@printf 'slate\nr\nq\n' | valgrind $(VGFLAGS) "./$(BINDIR)/$(TARGET)" slate > /dev/null
 	@echo "[valgrind] Invalid inputs (symbols, wrong length, off-list), loss game, then replay..."
-	@printf 'slate\nbarn!\ncrane\nnotaword\npride\nabout\nshiny\nerase\nr\nq\n' | valgrind $(VGFLAGS) ./$(BINDIR)/$(TARGET) > /dev/null
+	@printf 'slate\nbarn!\ncrane\nnotaword\npride\nabout\nshiny\nerase\nr\nq\n' | valgrind $(VGFLAGS) "./$(BINDIR)/$(TARGET)" > /dev/null
 	@echo "[valgrind] Over-long line, bytes, then end-of-file mid-game and at replay prompt..."
-	@printf 'abcdefghij\nhello1!\nqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjkl\nqwe\n' | valgrind $(VGFLAGS) ./$(BINDIR)/$(TARGET) > /dev/null
+	@printf 'abcdefghij\nhello1!\nqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjkl\nqwe\n' | valgrind $(VGFLAGS) "./$(BINDIR)/$(TARGET)" > /dev/null
 	@echo "[valgrind] All runs finished with no leaks or memory errors."
 # =============================================================================
 # Formatting and Style Rule (Requires clang-format)
@@ -90,7 +92,7 @@ valgrind: all
 .PHONY: format # Mark 'format' as a phony target to avoid conflicts with files
 format:
 	@echo "Formatting source files..."
-	@clang-format -i $(SRCDIR)/*.c $(SRCDIR)/*.h
+	@clang-format -i "$(SRCDIR)"/*.c "$(SRCDIR)"/*.h
 # ==============================================================================
 # Help Rule
 # ==============================================================================
