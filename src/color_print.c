@@ -25,21 +25,21 @@ int printColor(const char *fg, const char *bg, const char *style,
  * Prints Wordle character of correct letter and location
  */
 int printWordleGreen(const char *string) {
-  return printColor(FG_WHITE, BG_GREEN, STYLE_BOLD, string);
+  return printColor(FG_WHITE, BG_WORDLE_GREEN, STYLE_BOLD, string);
 }
 
 /**
  * Prints Wordle character of correct letter but incorrect location
  */
 int printWordleYellow(const char *string) {
-  return printColor(FG_WHITE, BG_YELLOW, STYLE_BOLD, string);
+  return printColor(FG_WHITE, BG_WORDLE_YELLOW, STYLE_BOLD, string);
 }
 
 /**
  * Prints Wordle character of incorrect letter
  */
 int printWordleBlack(const char *string) {
-  return printColor(FG_WHITE, BG_BLACK, STYLE_BOLD, string);
+  return printColor(FG_WHITE, BG_WORDLE_GRAY, STYLE_BOLD, string);
 }
 
 /**

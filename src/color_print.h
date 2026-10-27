@@ -26,6 +26,17 @@
 #define STYLE_BOLD "\x1b[1m"
 #define STYLE_UNDERLINE "\x1b[4m"
 
+// 256-colour palette approximating the official Wordle tile colours, for a
+// better-looking interface than the basic 16 ANSI colours.
+#define FG_WORDLE_GREEN "\x1b[38;5;114m"
+#define FG_WORDLE_YELLOW "\x1b[38;5;222m"
+#define FG_WORDLE_GRAY "\x1b[38;5;246m"
+
+#define BG_WORDLE_GREEN "\x1b[48;5;65m"
+#define BG_WORDLE_YELLOW "\x1b[48;5;136m"
+#define BG_WORDLE_GRAY "\x1b[48;5;238m"
+#define BG_WORDLE_EMPTY "\x1b[48;5;235m"
+
 int printColor(const char *fg, const char *bg, const char *style,
                const char *string);
 int printWordleGreen(const char *string);
