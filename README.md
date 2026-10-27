@@ -1,8 +1,8 @@
+![TUI Demo](demo.gif)
+
 # wordle_c
 
-A terminal Wordle written in C with a full-screen color TUI. While the package was originally designed for UNIX-like systems, it can be compiled and played on any terminal that supports ANSI escape codes.
-![TUI Demo](demo.gif)
-This repository began as a summer project, but later became a test case for Local Large Language Model use (Qwen-3.8-Flash-Next IQ3_S via the Strata Inference engine) after we both realized that'd we'd never have time to finish it manually. It's a fun, self-contained piece of code.
+A terminal Wordle written in C with a full-screen color TUI. While the package was originally designed for UNIX-like systems, it can be compiled and played on any terminal that supports ANSI escape codes. This repository began as a summer project, but later became a test case for Local Large Language Model use (Qwen-3.8-Flash-Next IQ3_S via the Strata Inference engine) after we both realized that'd we'd never have time to finish it manually. It's a fun, self-contained piece of code.
 
 ## How to install
 
