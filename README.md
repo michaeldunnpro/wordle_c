@@ -9,7 +9,7 @@ This repository began as a summer project, but later became a test case for Loca
 
 ## How to install
 
-Note that if you're on Windows, you'll need WSL2 to follow these instructions, since we're using make. First, clone the repository:
+Note that if you're on Windows, you'll need WSL2 to follow these instructions, since we're using make. I've tested these installation instructions without issue on both MacOS and Ubuntu. First, clone the repository:
 ```
 git clone https://github.com/michaeldunnpro/wordle_c.git
 ```
